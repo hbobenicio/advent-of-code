@@ -3,6 +3,10 @@
 #include <assert.h>
 #include <limits.h>
 
+#ifndef INPUT_BUF_CAP
+#define INPUT_BUF_CAP 2048
+#endif
+
 static size_t parse_input(int* out_buf, size_t out_buf_len)
 {
     int x;
@@ -27,7 +31,7 @@ static size_t solve(int* xs, size_t xs_len)
 }
 
 int main() {
-    int xs[1024] = {0};
+    int xs[INPUT_BUF_CAP] = {0};
     size_t xs_len = parse_input(xs, sizeof(xs) / sizeof(xs[0]));
     printf("%zu\n", solve(xs, xs_len));
 }

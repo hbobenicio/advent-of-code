@@ -2,14 +2,15 @@ import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.util.Using
 
-def solution(xs: List[Int]): Int = {
-    var prev = Int.MaxValue
+def solve(xs: List[Int]): Int = {
     var count = 0
-    for (x <- xs) {
-        if (prev < x) {
+    var prev = Int.MaxValue
+    for (i <- 0 until xs.length - 2) {
+        val sum = xs(i) + xs(i+1) + xs(i+2)
+        if (prev < sum) {
             count += 1
         }
-        prev = x
+        prev = sum
     }
     count
 }
@@ -20,5 +21,5 @@ def main = {
     for (line <- Source.stdin.getLines) {
         xs += line.toInt
     }
-    println(solution(xs.toList))
+    println(solve(xs.toList))
 }
