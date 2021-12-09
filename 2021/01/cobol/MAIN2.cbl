@@ -1,7 +1,7 @@
       *-----------------------------------------------------------------
       * $ cobc -Wall -Wextra -std=ibm-strict -fixed -g -O0 -debug \
       *        -x -o a.out cobol/MAIN2.cbl
-      * $ cat example.in.txt | ./a.out
+      * $ cat example.txt | ./a.out
       *-----------------------------------------------------------------
        IDENTIFICATION DIVISION.
        PROGRAM-ID.  AOC-2021-D01-2.
