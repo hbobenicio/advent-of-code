@@ -10,6 +10,7 @@ struct cmd {
 struct position {
     int horizontal;
     int depth;
+    int aim;
 };
 
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
@@ -32,10 +33,11 @@ int main()
     while(scanf("%s %d", cmd.direction, &cmd.value) == 2) {
         if(strncmp(cmd.direction, CMD_FORWARD, MIN(CMD_FORWARD_SIZE, ARRAY_SIZE(cmd.direction))) == 0) {
             pos.horizontal += cmd.value;
+            pos.depth += pos.aim * cmd.value;
         } else if (strncmp(cmd.direction, CMD_UP, MIN(CMD_UP_SIZE, ARRAY_SIZE(cmd.direction))) == 0) {
-            pos.depth -= cmd.value;
+            pos.aim -= cmd.value;
         } else if (strncmp(cmd.direction, CMD_DOWN, MIN(CMD_DOWN_SIZE, ARRAY_SIZE(cmd.direction))) == 0) {
-            pos.depth += cmd.value;
+            pos.aim += cmd.value;
         } else {
             fprintf(stderr, "error: invalid command direction '%s'\n", cmd.direction);
             exit(EXIT_FAILURE);
