@@ -17,10 +17,15 @@
     []
     (line-seq (BufferedReader. *in*)))
 
+(defn group-3
+    [xs]
+    (for [i (range 0 (- (count xs) 2))]
+        [(nth xs i) (nth xs (+ i 1)) (nth xs (+ i 2))]))
+
 (defn solve
     "Solve the logic of the problem"
-    [x & xs]
-    
+    [xs]
+    (group-3 xs)
     )
 
 (defn -main [& args]
