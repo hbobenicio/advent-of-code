@@ -23,14 +23,36 @@ int64_t extrapolate(int64_t* xs, int64_t xs_count)
         }
     }
     for (int64_t i = 0; i < xs_count - 1; i++) {
-        xs[i+1] += xs[i];
+        xs[i + 1] += xs[i];
     }
     return xs[xs_count - 1];
 }
 
+int64_t extrapolate_backwards(int64_t* xs, int64_t xs_count)
+{
+    for (int64_t i = 0; i < xs_count - 1; i++) {
+        bool all_zeroes = true;
+        for (int64_t j = xs_count - 1; j > i; j--) {
+            xs[j] -= xs[j - 1];
+            if (xs[j] != 0) {
+                all_zeroes = false;
+            }
+        }
+        if (all_zeroes) {
+            break;
+        }
+    }
+    for (int64_t i = xs_count - 1; i > 0; i--) {
+        xs[i - 1] -= xs[i];
+    }
+    return xs[0];
+}
+
 int main(void)
 {
-    int64_t total = 0;
+    int64_t total_a = 0;
+    int64_t total_b = 0;
+
     char line[1024];
     while (fgets(line, sizeof(line), stdin) != NULL) {
         size_t line_len = strnlen(line, sizeof(line));
@@ -39,15 +61,23 @@ int main(void)
             continue;
         }
 
-        int64_t *xs = NULL, xs_count = 0;
-        numbers_parse(line, &xs, &xs_count);
+        int64_t *xs_a = NULL, xs_count = 0;
+        numbers_parse(line, &xs_a, &xs_count);
 
-        int64_t resp = extrapolate(xs, xs_count);
-        total += resp;
+        int64_t* xs_b = malloc(xs_count * sizeof(xs_b[0]));
+        memcpy(xs_b, xs_a, xs_count * sizeof(xs_a[0]));
 
-        free(xs);
+        int64_t resp_a = extrapolate(xs_a, xs_count);
+        total_a += resp_a;
+
+        int64_t resp_b = extrapolate_backwards(xs_b, xs_count);
+        total_b += resp_b;
+
+        free(xs_b);
+        free(xs_a);
     }
-    printf("Part A: %ld\n", total);
+    printf("Part A: %ld\n", total_a);
+    printf("Part B: %ld\n", total_b);
 }
 
 const char* numbers_parse(const char* s, int64_t** xs, int64_t* len)
