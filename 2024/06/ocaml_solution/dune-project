@@ -1,0 +1,20 @@
+(lang dune 3.17)
+(name ocaml_solution)
+(generate_opam_files true)
+(source
+ (github "hbobenicio/advent-of-code"))
+(authors "hbobenicio <hbobenicio@gmail.com>")
+(maintainers "hbobenicio <hbobenicio@gmail.com>")
+(license ISC)
+(documentation https://url/to/documentation)
+(package
+ (name ocaml_solution)
+ (synopsis "A short synopsis")
+ (description "A longer description")
+ (depends
+  ocaml
+  ppx_inline_test)
+ (tags
+  ("aoc" "advent-of-code" "2024")))
+
+; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html
