@@ -2,10 +2,10 @@ let stdin_read_all () : string =
     (** stdin_read_all reads all bytes from stdin and creates a string out of it. *)
     let ch = open_in_bin "/dev/stdin" in
     let finally () = close_in ch in
-    Fun.protect ~finally (fun () ->
+    Fun.protect ~finally begin fun () ->
         let stdin_size: int = (Unix.fstat Unix.stdin).st_size in
         really_input_string ch stdin_size
-    )
+    end
 
 let is_not_blank (s: string) : bool =
     let s = String.trim s in

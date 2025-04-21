@@ -21,6 +21,15 @@ module CharMatrix = struct
         items = Array.make_matrix n m value;
     }
 
+    let dup (mat: t) : t =
+        let dup_mat = create mat.n mat.m ' ' in
+        for i = 0 to mat.n - 1 do
+            for j = 0 to mat.m - 1 do
+                dup_mat.items.(i).(j) <- mat.items.(i).(j)
+            done
+        done;
+        dup_mat
+
     let parse (value: char) (input: string) : t =
         let lines: string list = input
             |> String.split_on_char '\n'
